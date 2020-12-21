@@ -1,0 +1,45 @@
+﻿using Data.EFConfiguration;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+
+namespace Crosscutting
+{
+    public static class DependencyInjection
+    {
+        public static void Register(IServiceCollection services, IConfiguration configuration)
+        {
+            RegisterDataBase(services, configuration);
+
+            RegisterDataServices(services);
+            //RegisterDomainServices(services);
+        }
+
+        private static void RegisterDataBase(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<AuthenticationContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+        }
+
+        private static void RegisterDataServices(IServiceCollection services)
+        {
+            services.RegisterTypes(Data.IoC.GetTypes());
+        }
+
+        //private static void RegisterDomainServices(IServiceCollection services)
+        //{
+        //    services.RegisterTypes(Domain.IoC.Module.GetTypes());
+        //}
+
+        private static void RegisterTypes(this IServiceCollection services, Dictionary<Type, Type> types)
+        {
+            foreach (var item in types)
+            {
+                services.AddTransient(item.Key, item.Value);
+
+            }
+        }
+
+    }
+}
