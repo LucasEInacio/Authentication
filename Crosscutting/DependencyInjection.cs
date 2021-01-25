@@ -14,7 +14,7 @@ namespace Crosscutting
             RegisterDataBase(services, configuration);
 
             RegisterDataServices(services);
-            //RegisterDomainServices(services);
+            RegisterDomainServices(services);
         }
 
         private static void RegisterDataBase(IServiceCollection services, IConfiguration configuration)
@@ -27,17 +27,16 @@ namespace Crosscutting
             services.RegisterTypes(Data.IoC.GetTypes());
         }
 
-        //private static void RegisterDomainServices(IServiceCollection services)
-        //{
-        //    services.RegisterTypes(Domain.IoC.Module.GetTypes());
-        //}
+        private static void RegisterDomainServices(IServiceCollection services)
+        {
+            services.RegisterTypes(Domain.IoC.GetTypes());
+        }
 
         private static void RegisterTypes(this IServiceCollection services, Dictionary<Type, Type> types)
         {
             foreach (var item in types)
             {
                 services.AddTransient(item.Key, item.Value);
-
             }
         }
 

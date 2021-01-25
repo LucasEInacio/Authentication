@@ -1,3 +1,4 @@
+using Domain.Extensions;
 using System;
 
 namespace Domain.DTOs
@@ -6,6 +7,7 @@ namespace Domain.DTOs
     {
         public string Login { get; set; }
         public string Password { get; set; }
+        public string Role { get; set; }
         public DateTime CreationDate { get; set; }
     }
 }

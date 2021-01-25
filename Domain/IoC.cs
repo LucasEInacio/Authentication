@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Services;
+using System;
 using System.Collections.Generic;
 
 namespace Domain
@@ -8,8 +9,9 @@ namespace Domain
         public static Dictionary<Type, Type> GetTypes()
         {
             return new Dictionary<Type, Type>
-            { 
-            
+            {
+                { typeof(IUserService), typeof(UserService) },
+                { typeof(ITokenService), typeof(TokenService) }
             };
         }
     }

@@ -26,6 +26,10 @@ namespace Data.EFConfiguration.Mapping
             builder.Property(a => a.CreationDate)
                 .HasColumnType("Datetime")
                 .IsRequired();
+            
+            builder.Property(a => a.Role)
+                .HasMaxLength(255)
+                .IsRequired();
         }
     }
 }
